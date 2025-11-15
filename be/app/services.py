@@ -1,4 +1,3 @@
-# services.py
 from .decorators import singleton
 
 @singleton

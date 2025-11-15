@@ -1,4 +1,3 @@
-# decorators.py
 from functools import wraps
 
 def singleton(cls):

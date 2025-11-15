@@ -1,4 +1,3 @@
-# routes.py
 from fastapi import APIRouter, Depends
 from .services import CounterService
 
