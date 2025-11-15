@@ -6,6 +6,7 @@ import "./index.css";
 import CreateQuizPage from "./pages/CreateQuizPage.tsx";
 import QuizListPage from "./pages/QuizListPage.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
+import SolveQuizPage from "./pages/SolveQuizPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -41,17 +42,7 @@ createRoot(document.getElementById("root")!).render(
           {/* Single Quiz → "/quizzes/:quizId" */}
           <Route
             path="quizzes/:quizId"
-            element={
-              <div className="space-y-4">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  Quiz details
-                </h1>
-                <p className="text-gray-600">
-                  This page will show a specific quiz based on its ID from the URL.
-                  Later you can read the ID from the route params and load the quiz data.
-                </p>
-              </div>
-            }
+            element={<SolveQuizPage/>}
           />
         </Route>
       </Routes>

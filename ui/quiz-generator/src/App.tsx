@@ -106,7 +106,7 @@ export default function App() {
                 </NavLink>
 
                 <NavLink
-                  to="/solve-quiz"
+                  to="/quizzes/:quizId"
                   className={({ isActive }) =>
                     classNames(
                       isActive
