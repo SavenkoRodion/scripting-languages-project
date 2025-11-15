@@ -1,6 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../main";
-import { createQuiz, deleteQuiz, getQuizList, type QuizTypeMock } from "./util";
+import {
+  createQuiz,
+  deleteQuiz,
+  getQuizList,
+  type CreateQuizPayloadMock,
+} from "./util";
 
 export const useQuizList = () => {
   return useQuery({
@@ -9,9 +14,9 @@ export const useQuizList = () => {
   });
 };
 
-export const useAddQuiz = (quiz: QuizTypeMock) => {
+export const useAddQuiz = () => {
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (quiz: CreateQuizPayloadMock) => {
       await createQuiz(quiz);
     },
     onSuccess: () => {
@@ -20,7 +25,7 @@ export const useAddQuiz = (quiz: QuizTypeMock) => {
   });
 };
 
-export const useRemoveQuiz = (id: number) => {
+export const useRemoveQuiz = (id: string) => {
   return useMutation({
     mutationFn: async () => {
       await deleteQuiz(id);
