@@ -1,18 +1,12 @@
 import { type FormEvent, useState } from "react";
-
-type YesNo = "yes" | "no";
-
-interface Question {
-  id: number;
-  text: string;
-  correctAnswer: YesNo;
-}
+import { useAddQuiz } from "../util/hooks";
+import type { QuestionMock, YesNo } from "../util/util";
 
 export default function CreateQuizPage() {
   const [quizTitle, setQuizTitle] = useState("");
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("Easy");
-  const [questions, setQuestions] = useState<Question[]>([
+  const [questions, setQuestions] = useState<QuestionMock[]>([
     { id: 1, text: "", correctAnswer: "yes" },
   ]);
 
@@ -24,9 +18,7 @@ export default function CreateQuizPage() {
   };
 
   const updateQuestionText = (id: number, text: string) => {
-    setQuestions((prev) =>
-      prev.map((q) => (q.id === id ? { ...q, text } : q))
-    );
+    setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, text } : q)));
   };
 
   const updateQuestionAnswer = (id: number, answer: YesNo) => {
@@ -42,6 +34,8 @@ export default function CreateQuizPage() {
     });
   };
 
+  const addMutation = useAddQuiz();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -53,6 +47,7 @@ export default function CreateQuizPage() {
     };
 
     console.log("Quiz to save:", payload);
+    addMutation.mutate(payload);
     // tutaj później: API call / localStorage / navigation etc.
   };
 
