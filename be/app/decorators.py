@@ -1,14 +1,8 @@
-from functools import wraps
 
-def singleton(cls):
-    instance = None
-
-    @wraps(cls)
-    def get_instance(*args, **kwargs):
-        nonlocal instance
-        if instance is None:
-            print(f"Creating singleton instance of {cls.__name__}")
-            instance = cls(*args, **kwargs)
-        return instance
-
-    return get_instance
+def singleton(class_):
+    instances = {}
+    def getinstance(*args, **kwargs):
+        if class_ not in instances:
+            instances[class_] = class_(*args, **kwargs)
+        return instances[class_]
+    return getinstance
