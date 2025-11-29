@@ -166,16 +166,5 @@
         "answer": true
       }
     ]
-  },
-  {
-    "quizId": 3,
-    "quizTitle": "Nowy quiz",
-    "questions": [
-      {
-        "id": 1,
-        "question": "Czy to działa?",
-        "answer": true
-      }
-    ]
   }
 ]

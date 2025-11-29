@@ -55,12 +55,14 @@ class RepositoryService:
         serializable = [q.model_dump() for q in quizzes]
         # albo q.dict() dla Pydantic v1
 
+        with self._file_path.open("w", encoding="utf-8") as f:
+            json.dump(serializable, f, ensure_ascii=False, indent=2)
         return True
 
 @singleton
 class QuizService:
-    def __init__(self, repository: RepositoryService = None):
-        self._repository = repository if repository else RepositoryService()
+    def __init__(self):
+        self._repository = RepositoryService()
 
     def get_all_quizes(self) -> List[QuizResponse]:
         quizzes = self._repository.getAllQuizzes()

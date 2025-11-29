@@ -43,4 +43,17 @@ def singleton(class_):
     
     class_.__new__ = staticmethod(new_new)
     class_.__init__ = new_init
+
+    def reset_singleton():
+        nonlocal instance, initialized, first_args, first_kwargs
+        with lock:
+            instance = None
+            initialized = False
+            first_args = None
+            first_kwargs = None
+
+    class_.__new__ = staticmethod(new_new)
+    class_.__init__ = new_init
+    class_._reset_singleton_for_tests = staticmethod(reset_singleton)
+
     return class_
