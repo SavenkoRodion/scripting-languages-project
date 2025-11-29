@@ -1,1 +1,5 @@
 @import "tailwindcss";
+@font-face {
+    font-family:'PopArt';
+    src: local('PopArt'), url(./fonts/PopArt-Regular.ttf) format('truetype')
+}
