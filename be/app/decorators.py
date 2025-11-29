@@ -1,4 +1,6 @@
 import threading
+import functools
+import inspect
 
 
 def singleton(class_):
@@ -34,6 +36,7 @@ def singleton(class_):
         
         return instance
     
+    @functools.wraps(original_init)
     def new_init(self, *args, **kwargs):
         nonlocal initialized
         with lock:
@@ -41,6 +44,16 @@ def singleton(class_):
                 original_init(self, *args, **kwargs)
                 initialized = True
     
+    new_init.__signature__ = inspect.signature(original_init)
+    
     class_.__new__ = staticmethod(new_new)
     class_.__init__ = new_init
+    
+    original_sig = inspect.signature(original_init)
+    params_without_self = [
+        param for name, param in original_sig.parameters.items()
+        if name != 'self'
+    ]
+    class_.__signature__ = original_sig.replace(parameters=params_without_self)
+    
     return class_

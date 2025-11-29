@@ -34,8 +34,8 @@ class RepositoryService:
 
 @singleton
 class QuizService:
-    def __init__(self, repository: RepositoryService = None):
-        self._repository = repository if repository else RepositoryService()
+    def __init__(self):
+        self._repository = RepositoryService()
 
     def get_all_quizes(self) -> List[QuizResponse]:
         quizzes = self._repository.getAllQuizzes()
