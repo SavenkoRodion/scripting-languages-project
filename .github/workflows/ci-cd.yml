@@ -1,0 +1,59 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - '**'
+  pull-request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Build backend
+        run: bash scripts/build.sh
+  
+  unit_tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Run unit tests
+        run: bash scripts/unit_tests.sh
+
+  smoke_tests:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+    needs: unit_tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Run Smoke Tests
+        run: bash scripts/smoke_tests.sh
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: smoke_tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: bash scripts/deploy.sh
