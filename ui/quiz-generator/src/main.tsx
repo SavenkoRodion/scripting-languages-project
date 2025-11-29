@@ -8,6 +8,7 @@ import "./index.css";
 import CreateQuizPage from "./pages/CreateQuizPage.tsx";
 import QuizListPage from "./pages/QuizListPage.tsx";
 import ResultQuizPage from "./pages/resultQuiz/ResultQuizPage.tsx";
+import SolveQuizPage from "./pages/solveQuiz/SolveQuizPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -44,21 +45,7 @@ createRoot(document.getElementById("root")!).render(
             element={<ResultQuizPage />}
           />
             {/* Single Quiz → "/quizzes/:quizId" */}
-            <Route
-              path="quizzes/:quizId"
-              element={
-                <div className="space-y-4">
-                  <h1 className="text-2xl font-semibold text-gray-900">
-                    Quiz details
-                  </h1>
-                  <p className="text-gray-600">
-                    This page will show a specific quiz based on its ID from the
-                    URL. Later you can read the ID from the route params and
-                    load the quiz data.
-                  </p>
-                </div>
-              }
-            />
+            <Route path="quizzes/:quizId" element={<SolveQuizPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
