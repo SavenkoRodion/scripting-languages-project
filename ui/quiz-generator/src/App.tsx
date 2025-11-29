@@ -1,5 +1,9 @@
 // src/App.tsx
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink, Outlet } from "react-router";
 
@@ -76,11 +80,17 @@ export default function App() {
                     <span className="sr-only">Open main menu</span>
                     <Bars3Icon
                       aria-hidden="true"
-                      className={classNames(!open && "block", "size-6 group-data-open:hidden")}
+                      className={classNames(
+                        !open && "block",
+                        "size-6 group-data-open:hidden"
+                      )}
                     />
                     <XMarkIcon
                       aria-hidden="true"
-                      className={classNames(open && "block", "hidden size-6 group-data-open:block")}
+                      className={classNames(
+                        open && "block",
+                        "hidden size-6 group-data-open:block"
+                      )}
                     />
                   </DisclosureButton>
                 </div>
@@ -106,7 +116,7 @@ export default function App() {
                 </NavLink>
 
                 <NavLink
-                  to="/quizzes/:quizId"
+                  to="/solve-quiz"
                   className={({ isActive }) =>
                     classNames(
                       isActive
