@@ -1,170 +1,181 @@
 [
-    {
-        "quizId": 1,
-        "quizTitle": "Science Basics",
-        "questions": [
-            {
-                "id": 1,
-                "question": "The Sun is a star.",
-                "answer": true
-            },
-            {
-                "id": 2,
-                "question": "Sound travels faster than light.",
-                "answer": false
-            },
-            {
-                "id": 3,
-                "question": "Humans have walked on the Moon.",
-                "answer": true
-            },
-            {
-                "id": 4,
-                "question": "Water boils at 100 degrees Celsius at sea level.",
-                "answer": true
-            },
-            {
-                "id": 5,
-                "question": "Plants produce oxygen through photosynthesis.",
-                "answer": true
-            },
-            {
-                "id": 6,
-                "question": "Electrons are larger than atoms.",
-                "answer": false
-            },
-            {
-                "id": 7,
-                "question": "The Earth is the center of the solar system.",
-                "answer": false
-            },
-            {
-                "id": 8,
-                "question": "Lightning is a form of electricity.",
-                "answer": true
-            },
-            {
-                "id": 9,
-                "question": "All metals are magnetic.",
-                "answer": false
-            },
-            {
-                "id": 10,
-                "question": "Humans need oxygen to survive.",
-                "answer": true
-            }
-        ]
-    },
-    {
-        "quizId": 2,
-        "quizTitle": "Geography Facts",
-        "questions": [
-            {
-                "id": 1,
-                "question": "Africa is the largest continent.",
-                "answer": false
-            },
-            {
-                "id": 2,
-                "question": "Australia is both a country and a continent.",
-                "answer": true
-            },
-            {
-                "id": 3,
-                "question": "The Amazon River is the longest river in the world.",
-                "answer": false
-            },
-            {
-                "id": 4,
-                "question": "Asia is the most populous continent.",
-                "answer": true
-            },
-            {
-                "id": 5,
-                "question": "Europe is entirely in the Northern Hemisphere.",
-                "answer": false
-            },
-            {
-                "id": 6,
-                "question": "The Sahara is the largest hot desert in the world.",
-                "answer": true
-            },
-            {
-                "id": 7,
-                "question": "Antarctica has no permanent residents.",
-                "answer": true
-            },
-            {
-                "id": 8,
-                "question": "The Nile River flows northward.",
-                "answer": true
-            },
-            {
-                "id": 9,
-                "question": "Greenland is the world’s largest island.",
-                "answer": true
-            },
-            {
-                "id": 10,
-                "question": "South America has more countries than Africa.",
-                "answer": false
-            }
-        ]
-    },
-    {
-        "quizId": 3,
-        "quizTitle": "History Check",
-        "questions": [
-            {
-                "id": 1,
-                "question": "The Roman Empire fell before the Middle Ages began.",
-                "answer": true
-            },
-            {
-                "id": 2,
-                "question": "The printing press was invented in China.",
-                "answer": false
-            },
-            {
-                "id": 3,
-                "question": "World War II ended in 1945.",
-                "answer": true
-            },
-            {
-                "id": 4,
-                "question": "The Great Wall of China was built during a single dynasty.",
-                "answer": false
-            },
-            {
-                "id": 5,
-                "question": "The Renaissance began in Italy.",
-                "answer": true
-            },
-            {
-                "id": 6,
-                "question": "The ancient Egyptians wrote using hieroglyphics.",
-                "answer": true
-            },
-            {
-                "id": 7,
-                "question": "Christopher Columbus was the first person to prove the Earth is round.",
-                "answer": false
-            },
-            {
-                "id": 8,
-                "question": "The Cold War was primarily a conflict between the United States and the Soviet Union.",
-                "answer": true
-            },
-            {
-                "id": 9,
-                "question": "Julius Caesar was the first emperor of Rome.",
-                "answer": false
-            },
-            {
-                "id": 10,
-                "question": "The Industrial Revolution began in Great Britain.",
-                "answer": true
-            }
-        ]
-    }
+  {
+    "quizId": 1,
+    "quizTitle": "Science Basics",
+    "questions": [
+      {
+        "id": 1,
+        "question": "The Sun is a star.",
+        "answer": true
+      },
+      {
+        "id": 2,
+        "question": "Sound travels faster than light.",
+        "answer": false
+      },
+      {
+        "id": 3,
+        "question": "Humans have walked on the Moon.",
+        "answer": true
+      },
+      {
+        "id": 4,
+        "question": "Water boils at 100 degrees Celsius at sea level.",
+        "answer": true
+      },
+      {
+        "id": 5,
+        "question": "Plants produce oxygen through photosynthesis.",
+        "answer": true
+      },
+      {
+        "id": 6,
+        "question": "Electrons are larger than atoms.",
+        "answer": false
+      },
+      {
+        "id": 7,
+        "question": "The Earth is the center of the solar system.",
+        "answer": false
+      },
+      {
+        "id": 8,
+        "question": "Lightning is a form of electricity.",
+        "answer": true
+      },
+      {
+        "id": 9,
+        "question": "All metals are magnetic.",
+        "answer": false
+      },
+      {
+        "id": 10,
+        "question": "Humans need oxygen to survive.",
+        "answer": true
+      }
+    ]
+  },
+  {
+    "quizId": 2,
+    "quizTitle": "Geography Facts",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Africa is the largest continent.",
+        "answer": false
+      },
+      {
+        "id": 2,
+        "question": "Australia is both a country and a continent.",
+        "answer": true
+      },
+      {
+        "id": 3,
+        "question": "The Amazon River is the longest river in the world.",
+        "answer": false
+      },
+      {
+        "id": 4,
+        "question": "Asia is the most populous continent.",
+        "answer": true
+      },
+      {
+        "id": 5,
+        "question": "Europe is entirely in the Northern Hemisphere.",
+        "answer": false
+      },
+      {
+        "id": 6,
+        "question": "The Sahara is the largest hot desert in the world.",
+        "answer": true
+      },
+      {
+        "id": 7,
+        "question": "Antarctica has no permanent residents.",
+        "answer": true
+      },
+      {
+        "id": 8,
+        "question": "The Nile River flows northward.",
+        "answer": true
+      },
+      {
+        "id": 9,
+        "question": "Greenland is the world’s largest island.",
+        "answer": true
+      },
+      {
+        "id": 10,
+        "question": "South America has more countries than Africa.",
+        "answer": false
+      }
+    ]
+  },
+  {
+    "quizId": 3,
+    "quizTitle": "History Check",
+    "questions": [
+      {
+        "id": 1,
+        "question": "The Roman Empire fell before the Middle Ages began.",
+        "answer": true
+      },
+      {
+        "id": 2,
+        "question": "The printing press was invented in China.",
+        "answer": false
+      },
+      {
+        "id": 3,
+        "question": "World War II ended in 1945.",
+        "answer": true
+      },
+      {
+        "id": 4,
+        "question": "The Great Wall of China was built during a single dynasty.",
+        "answer": false
+      },
+      {
+        "id": 5,
+        "question": "The Renaissance began in Italy.",
+        "answer": true
+      },
+      {
+        "id": 6,
+        "question": "The ancient Egyptians wrote using hieroglyphics.",
+        "answer": true
+      },
+      {
+        "id": 7,
+        "question": "Christopher Columbus was the first person to prove the Earth is round.",
+        "answer": false
+      },
+      {
+        "id": 8,
+        "question": "The Cold War was primarily a conflict between the United States and the Soviet Union.",
+        "answer": true
+      },
+      {
+        "id": 9,
+        "question": "Julius Caesar was the first emperor of Rome.",
+        "answer": false
+      },
+      {
+        "id": 10,
+        "question": "The Industrial Revolution began in Great Britain.",
+        "answer": true
+      }
+    ]
+  },
+  {
+    "quizId": 3,
+    "quizTitle": "Nowy quiz",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Czy to działa?",
+        "answer": true
+      }
+    ]
+  }
 ]

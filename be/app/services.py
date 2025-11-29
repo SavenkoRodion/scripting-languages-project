@@ -1,6 +1,6 @@
 import json
 
-from typing import List
+from typing import List, Optional
 from pathlib import Path
 
 from dataclasses import asdict
@@ -25,7 +25,6 @@ class RepositoryService:
         self._file_path = Path(file_path)
 
     def getAllQuizzes(self) -> List[Quiz]:
-
         if not self._file_path.exists():
             return []
 
@@ -35,17 +34,41 @@ class RepositoryService:
         except (json.JSONDecodeError, OSError):
             return []
 
-        # zakładamy, że data to lista słowników reprezentujących Quiz
-        quizzes: List[Quiz] = [
-            from_dict(data_class=Quiz, data=item) for item in data
-        ]
+        # data to lista dictów → zamieniamy na listę Quiz
+        return [Quiz(**item) for item in data]
 
-        print(quizzes)
+    def addQuiz(self, quiz: Quiz) -> None:
+        quizzes = self.getAllQuizzes()
+        quizzes.append(quiz)
 
-        return quizzes
-
-    def addQuiz(self, quizzes: List[Quiz]) -> None:
-        serializable = [asdict(q) for q in quizzes]
+        # Pydantic: zamiana modeli na dict
+        serializable = [q.model_dump() for q in quizzes]  # v2
+        # jeśli masz Pydantic v1, użyj zamiast tego:
+        # serializable = [q.dict() for q in quizzes]
 
         with self._file_path.open("w", encoding="utf-8") as f:
             json.dump(serializable, f, ensure_ascii=False, indent=2)
+
+    def getQuizById(self, quiz_id: int) -> Optional[Quiz]:
+        quizzes = self.getAllQuizzes()
+        for quiz in quizzes:
+            if quiz.quizId == quiz_id:
+                return quiz
+        return None
+
+    def deleteQuiz(self, quiz_id: int) -> bool:
+        quizzes = self.getAllQuizzes()
+        original_len = len(quizzes)
+
+        quizzes = [q for q in quizzes if q.quizId != quiz_id]
+
+        if len(quizzes) == original_len:
+            return False
+
+        serializable = [q.model_dump() for q in quizzes]
+        # albo q.dict() dla Pydantic v1
+
+        with self._file_path.open("w", encoding="utf-8") as f:
+            json.dump(serializable, f, ensure_ascii=False, indent=2)
+
+        return True

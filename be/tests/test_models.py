@@ -1,6 +1,7 @@
 import unittest
 
 from app.models import Question, Quiz
+
 class TestQuestionAndQuiz(unittest.TestCase):
     def test_question_creation(self):
         q = Question(id=1, question="some question", answer=True)
@@ -10,8 +11,8 @@ class TestQuestionAndQuiz(unittest.TestCase):
         self.assertTrue(q.answer)
 
     def test_quiz_creation(self):
-        q1 = Question(1, "Question 1", True)
-        q2 = Question(2, "Question 2", False)
+        q1 = Question(id=1, question="Question 1", answer=True)
+        q2 = Question(id=2, question="Question 2", answer=False)
 
         quiz = Quiz(
             quizId=10,
