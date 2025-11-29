@@ -4,8 +4,7 @@ projects:
       - name: Dev
         services:
           - type: web
-            name: password-generator-frontend-dev
+            name: quiz-generator-frontend-dev
             runtime: static
-            repo: https://github.com/SavenkoRodion/scripting-languages-project/tree/be-main/ui/quiz-generator
-            buildCommand: cd frontend && npm install && npm run build
+            buildCommand: cd ui/quiz-generator && npm install && npm run build
             staticPublishPath: ui/quiz-generator/dist
