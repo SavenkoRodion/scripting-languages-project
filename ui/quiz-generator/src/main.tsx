@@ -7,6 +7,7 @@ import App from "./App.tsx";
 import "./index.css";
 import CreateQuizPage from "./pages/CreateQuizPage.tsx";
 import QuizListPage from "./pages/QuizListPage.tsx";
+import HomePage from "./pages/HomePage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -20,18 +21,9 @@ createRoot(document.getElementById("root")!).render(
             {/* HomePage → "/" */}
             <Route
               index
-              element={
-                <div className="space-y-4">
-                  <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                    Home
-                  </h1>
-                  <p className="text-gray-700">
-                    Welcome to your quiz app. Use the navigation to create new
-                    quizzes or browse existing ones.
-                  </p>
-                </div>
-              }
+              element={<HomePage />}
             />
+
 
             {/* AddQuiz → "/create-quiz" (already implemented) */}
             <Route path="create-quiz" element={<CreateQuizPage />} />
