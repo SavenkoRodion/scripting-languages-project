@@ -18,4 +18,4 @@ pip install --upgrade pip
 pip install -r "$REQUIREMENTS_FILE"
 
 export PYTHONPATH="$PROJECT_ROOT"
-pytest -q backend/tests
+pytest -q be/tests

@@ -55,5 +55,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_HOOK: ${{ secrets.RENDER_HOOK }}
         run: bash scripts/deploy.sh
