@@ -1,20 +1,18 @@
-// src/main.tsx lub src/index.tsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import CreateQuizPage from "./pages/CreateQuizPage.tsx";
-import QuizListPage from "./pages/QuizListPage.tsx";
-import { BrowserRouter, Routes, Route } from "react-router";
-import SolveQuizPage from "./pages/SolveQuizPage.tsx";
+import CreateQuizPage from "./pages/addQuiz/CreateQuizPage.tsx";
+import QuizListPage from "./pages/listQuiz/QuizListPage.tsx";
+import SolveQuizPage from "./pages/solveQuiz/SolveQuizPage.tsx";
+import ResultQuizPage from "./pages/resultQuiz/ResultQuizPage.tsx";
+import { BrowserRouter, Routes, Route } from "react-router"; 
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        {/* Layout route */}
         <Route path="/" element={<App />}>
-          {/* HomePage → "/" */}
           <Route
             index
             element={
@@ -30,19 +28,15 @@ createRoot(document.getElementById("root")!).render(
             }
           />
 
-          {/* AddQuiz → "/create-quiz" (already implemented) */}
           <Route path="create-quiz" element={<CreateQuizPage />} />
 
-          {/* QuizzesList → "/quizzes" */}
-          <Route
-            path="quizzes"
-            element={<QuizListPage/>}
-          />
+          <Route path="quizzes" element={<QuizListPage />} />
 
-          {/* Single Quiz → "/quizzes/:quizId" */}
+          <Route path="quizzes/:quizId" element={<SolveQuizPage />} />
+
           <Route
-            path="quizzes/:quizId"
-            element={<SolveQuizPage/>}
+            path="quizzes/:quizId/results"
+            element={<ResultQuizPage />}
           />
         </Route>
       </Routes>
