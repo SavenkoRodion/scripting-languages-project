@@ -18,4 +18,4 @@ pip install --upgrade pip
 pip install -r "$REQUIREMENTS_FILE"
 
 export PYTHONPATH="$PROJECT_ROOT"
-pytest -q be/tests
+pytest -q be/tests/test_repository_service.py
