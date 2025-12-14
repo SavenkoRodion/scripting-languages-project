@@ -48,5 +48,4 @@ if [ "$APP_URL" = "http://localhost:8000" ]; then
     echo "App started successfully"
 fi
 
-#python3 "$PROJECT_DIR/be/tests/smoke_test.py" "$APP_URL"
-#echo "All smoke tests passed!"
+python3 "$PROJECT_ROOT/be/tests/smoke_test.py" "$APP_URL"
