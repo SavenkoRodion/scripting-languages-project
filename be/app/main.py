@@ -1,5 +1,6 @@
 import logging
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .routes import router
 
 logging.basicConfig(
@@ -18,6 +19,14 @@ logger.info("FastAPI app instance created")
 logger.info("Including router...")
 
 app.include_router(router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 logger.info("Router included successfully")
 logger.info("Application initialization complete")
