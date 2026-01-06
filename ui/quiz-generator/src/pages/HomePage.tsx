@@ -1,11 +1,6 @@
 import "../fonts/PopArt-Regular.ttf";
-import { useQuizList } from "../util/hooks";
 
 export default function HomePage() {
-  const { data: quizList } = useQuizList();
-  fetch("http://127.0.0.1:8000/quizes").then((x) =>
-    x.json().then((y) => console.log("lol", y))
-  );
   return (
     <div
       style={{ display: "flex", justifyContent: "center", textAlign: "center" }}

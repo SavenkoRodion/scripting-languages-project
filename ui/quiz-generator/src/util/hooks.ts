@@ -1,11 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../main";
-import {
-  createQuiz,
-  deleteQuiz,
-  getQuizList,
-  type CreateQuizPayloadMock,
-} from "./util";
+import type { QuizCreateDto } from "./types";
+import { createQuiz, deleteQuiz, getQuizList } from "./util";
 
 export const useQuizList = () => {
   return useQuery({
@@ -16,7 +12,7 @@ export const useQuizList = () => {
 
 export const useAddQuiz = () => {
   return useMutation({
-    mutationFn: async (quiz: CreateQuizPayloadMock) => {
+    mutationFn: async (quiz: QuizCreateDto) => {
       await createQuiz(quiz);
     },
     onSuccess: () => {

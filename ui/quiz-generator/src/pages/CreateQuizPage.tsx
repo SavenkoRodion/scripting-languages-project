@@ -1,33 +1,33 @@
 import { type FormEvent, useState } from "react";
 import { useAddQuiz } from "../util/hooks";
-import type { QuestionMock, YesNo } from "../util/util";
+import type { QuestionCreateDto } from "../util/types";
+import type { YesNo } from "../util/util";
 
 export default function CreateQuizPage() {
   const [quizTitle, setQuizTitle] = useState("");
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("Easy");
-  const [questions, setQuestions] = useState<QuestionMock[]>([
-    { id: 1, text: "", correctAnswer: "yes" },
-  ]);
+  const [questions, setQuestions] = useState<
+    Array<QuestionCreateDto & { id: string }>
+  >([{ id: crypto.randomUUID(), question: "", answer: true }]);
 
   const addQuestion = () => {
     setQuestions((prev) => {
-      const nextId = prev.length ? prev[prev.length - 1].id + 1 : 1;
-      return [...prev, { id: nextId, text: "", correctAnswer: "yes" }];
+      return [...prev, { id: crypto.randomUUID(), question: "", answer: true }];
     });
   };
 
-  const updateQuestionText = (id: number, text: string) => {
+  const updateQuestionText = (id: string, text: string) => {
     setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, text } : q)));
   };
 
-  const updateQuestionAnswer = (id: number, answer: YesNo) => {
+  const updateQuestionAnswer = (id: string, answer: YesNo) => {
     setQuestions((prev) =>
       prev.map((q) => (q.id === id ? { ...q, correctAnswer: answer } : q))
     );
   };
 
-  const removeQuestion = (id: number) => {
+  const removeQuestion = (id: string) => {
     setQuestions((prev) => {
       if (prev.length === 1) return prev; // don't remove last question
       return prev.filter((q) => q.id !== id);
@@ -39,16 +39,11 @@ export default function CreateQuizPage() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    const payload = {
+    addMutation.mutate({
       title: quizTitle,
-      description,
-      difficulty,
-      questions,
-    };
-
-    console.log("Quiz to save:", payload);
-    addMutation.mutate(payload);
-    // tutaj później: API call / localStorage / navigation etc.
+      description: description,
+      questions: questions,
+    });
   };
 
   return (
@@ -186,7 +181,7 @@ export default function CreateQuizPage() {
                         id={`q-${question.id}-text`}
                         name={`q-${question.id}-text`}
                         type="text"
-                        value={question.text}
+                        value={question.question}
                         onChange={(e) =>
                           updateQuestionText(question.id, e.target.value)
                         }
@@ -206,7 +201,7 @@ export default function CreateQuizPage() {
                           type="radio"
                           name={`q-${question.id}-correct`}
                           value="yes"
-                          checked={question.correctAnswer === "yes"}
+                          checked={question.answer}
                           onChange={() =>
                             updateQuestionAnswer(question.id, "yes")
                           }
@@ -220,7 +215,7 @@ export default function CreateQuizPage() {
                           type="radio"
                           name={`q-${question.id}-correct`}
                           value="no"
-                          checked={question.correctAnswer === "no"}
+                          checked={!question.answer}
                           onChange={() =>
                             updateQuestionAnswer(question.id, "no")
                           }
