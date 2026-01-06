@@ -13,4 +13,4 @@ projects:
             runtime: python
             plan: free
             buildCommand: cd be && pip install -r requirements.txt
-            startCommand: cd be && gunicorn -w 2 -b 0.0.0.0:$PORT backend.app:app
+            startCommand: cd be && uvicorn app.main:app --host 0.0.0.0 --port $PORT
