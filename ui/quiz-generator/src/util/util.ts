@@ -2,7 +2,7 @@ import axios from "axios";
 import type { QuizCreateDto, QuizResponse } from "./types";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: {
     "Content-Type": "application/json",
   },
