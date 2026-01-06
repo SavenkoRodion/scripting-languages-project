@@ -1,29 +1,6 @@
 import axios from "axios";
 import type { QuizCreateDto, QuizResponse } from "./types";
 
-export type QuizTypeMock = {
-  id: string;
-  name: string;
-  description: string;
-  questionsCount: number;
-  difficulty: string;
-};
-
-export type YesNo = "yes" | "no";
-
-export interface QuestionMock {
-  id: number;
-  text: string;
-  correctAnswer: YesNo;
-}
-
-export type CreateQuizPayloadMock = {
-  title: string;
-  description: string;
-  difficulty: string;
-  questions: QuestionMock[];
-};
-
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/",
   headers: {
@@ -42,9 +19,9 @@ export async function createQuiz(
     .data;
 }
 
-export async function deleteQuiz(id: string): Promise<boolean> {
-  // const quizList = await getQuizList();
-  // const index = quizList.findIndex((x) => x.quizId === id);
-  // quizList.splice(index, 1);
-  return true;
-}
+// export async function deleteQuiz(id: string): Promise<boolean> {
+//   // const quizList = await getQuizList();
+//   // const index = quizList.findIndex((x) => x.quizId === id);
+//   // quizList.splice(index, 1);
+//   return true;
+// }

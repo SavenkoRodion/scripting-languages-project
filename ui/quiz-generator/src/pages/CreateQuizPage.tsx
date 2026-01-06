@@ -1,7 +1,6 @@
 import { type FormEvent, useState } from "react";
 import { useAddQuiz } from "../util/hooks";
 import type { QuestionCreateDto } from "../util/types";
-import type { YesNo } from "../util/util";
 
 export default function CreateQuizPage() {
   const [quizTitle, setQuizTitle] = useState("");
@@ -21,9 +20,9 @@ export default function CreateQuizPage() {
     setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, text } : q)));
   };
 
-  const updateQuestionAnswer = (id: string, answer: YesNo) => {
+  const updateQuestionAnswer = (id: string, answer: boolean) => {
     setQuestions((prev) =>
-      prev.map((q) => (q.id === id ? { ...q, correctAnswer: answer } : q))
+      prev.map((q) => (q.id === id ? { ...q, answer } : q))
     );
   };
 
@@ -203,7 +202,7 @@ export default function CreateQuizPage() {
                           value="yes"
                           checked={question.answer}
                           onChange={() =>
-                            updateQuestionAnswer(question.id, "yes")
+                            updateQuestionAnswer(question.id, true)
                           }
                           className="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600"
                         />
@@ -217,7 +216,7 @@ export default function CreateQuizPage() {
                           value="no"
                           checked={!question.answer}
                           onChange={() =>
-                            updateQuestionAnswer(question.id, "no")
+                            updateQuestionAnswer(question.id, false)
                           }
                           className="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600"
                         />
