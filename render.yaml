@@ -1,0 +1,10 @@
+projects:
+  - name: Quiz Generator
+    environments:
+      - name: Dev
+        services:
+          - type: web
+            name: quiz-generator-frontend-dev
+            runtime: static
+            buildCommand: cd ui/quiz-generator && npm install && npm run build
+            staticPublishPath: ui/quiz-generator/dist
