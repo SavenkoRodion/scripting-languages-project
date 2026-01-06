@@ -2,13 +2,14 @@ import axios from "axios";
 import type { QuizCreateDto, QuizResponse } from "./types";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: `${import.meta.env.VITE_BACKEND_URL}`,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 export async function getQuizList(): Promise<QuizResponse[]> {
+  console.log(`api call to ${import.meta.env.VITE_BACKEND_URL}`);
   return (await api.get<QuizResponse[]>("quizes")).data;
 }
 
