@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 @singleton
 class RepositoryService:
-    def __init__(self, file_path: str = "be/data/quizzes.json"):
+    def __init__(self, file_path: str = "/data/quizzes.json"):
         self._file_path = Path(file_path)
         logger.info(f"RepositoryService initialized with file_path: {self._file_path}")
         logger.info(f"File path absolute: {self._file_path.absolute()}")
