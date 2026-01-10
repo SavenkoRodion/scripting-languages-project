@@ -1,11 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../main";
-import {
-  createQuiz,
-  deleteQuiz,
-  getQuizList,
-  type CreateQuizPayloadMock,
-} from "./util";
+import type { QuizCreateDto } from "./types";
+import { createQuiz, getQuizList } from "./util";
 
 export const useQuizList = () => {
   return useQuery({
@@ -16,7 +12,7 @@ export const useQuizList = () => {
 
 export const useAddQuiz = () => {
   return useMutation({
-    mutationFn: async (quiz: CreateQuizPayloadMock) => {
+    mutationFn: async (quiz: QuizCreateDto) => {
       await createQuiz(quiz);
     },
     onSuccess: () => {
@@ -25,13 +21,13 @@ export const useAddQuiz = () => {
   });
 };
 
-export const useRemoveQuiz = (id: string) => {
-  return useMutation({
-    mutationFn: async () => {
-      await deleteQuiz(id);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["quizList"] });
-    },
-  });
-};
+// export const useRemoveQuiz = (id: string) => {
+//   return useMutation({
+//     mutationFn: async () => {
+//       await deleteQuiz(id);
+//     },
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ["quizList"] });
+//     },
+//   });
+// };

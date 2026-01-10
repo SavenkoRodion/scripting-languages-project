@@ -1,5 +1,5 @@
 import logging
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from .models import QuizAnswers, QuizCreateDto
 from .services import QuizService
@@ -36,16 +36,22 @@ def get_quiz(quiz_id: int, quiz_service: QuizService = Depends(get_quiz_service)
         result = quiz_service.get_quiz(quiz_id)
         if result:
             logger.info(f"GET /quizes/{quiz_id} - Quiz found and returned")
+            return result
         else:
-            logger.warning(f"GET /quizes/{quiz_id} - Quiz not found")
-        return result
+            logger.warning(f"GET /quizes/{quiz_id} - Quiz not found, returning 404")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Quiz with ID {quiz_id} not found"
+            )
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"GET /quizes/{quiz_id} - Error: {type(e).__name__}: {e}")
         logger.exception("Full traceback:")
         raise
 
 
-@router.post("/quizes/create")
+@router.post("/quizes/create", status_code=status.HTTP_201_CREATED)
 def create_quiz(quiz_data: QuizCreateDto, quiz_service: QuizService = Depends(get_quiz_service)):
     logger.info("=" * 80)
     logger.info("POST /quizes/create - Request received")
@@ -71,7 +77,17 @@ def delete_quiz(quiz_id: int, quiz_service: QuizService = Depends(get_quiz_servi
     try:
         result = quiz_service.delete_quiz(quiz_id)
         logger.info(f"DELETE /quizes/{quiz_id} - Result: {result}")
-        return result
+        
+        if result.get("success"):
+            return result
+        else:
+            logger.warning(f"DELETE /quizes/{quiz_id} - Quiz not found, returning 404")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=result.get("message", f"Quiz with ID {quiz_id} not found")
+            )
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"DELETE /quizes/{quiz_id} - Error: {type(e).__name__}: {e}")
         logger.exception("Full traceback:")
@@ -86,8 +102,18 @@ def check_quiz(quiz_id: int, answers: QuizAnswers, quiz_service: QuizService = D
     
     try:
         result = quiz_service.check_quiz(quiz_id, answers)
+        
+        if "error" in result:
+            logger.warning(f"POST /quizes/{quiz_id}/check - Quiz not found, returning 404")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=result.get("error", f"Quiz with ID {quiz_id} not found")
+            )
+        
         logger.info(f"POST /quizes/{quiz_id}/check - Check completed")
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"POST /quizes/{quiz_id}/check - Error: {type(e).__name__}: {e}")
         logger.exception("Full traceback:")
