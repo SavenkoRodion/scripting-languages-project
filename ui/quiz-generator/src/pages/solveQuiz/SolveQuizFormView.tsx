@@ -116,7 +116,7 @@ export default function SolveQuizFormView({
               <div className="text-sm text-gray-700">
                 Score:{" "}
                 <span className="font-semibold text-gray-900">
-                  {scorePercentage.toFixed(1)}%
+                  {scorePercentage.toString()}%
                 </span>
               </div>
             </div>

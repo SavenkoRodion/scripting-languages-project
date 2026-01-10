@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { type FormEvent, useState } from "react";
+import { useNavigate } from "react-router";
 import { z } from "zod";
 import { useAddQuiz } from "../util/hooks";
 import type { QuestionCreateDto } from "../util/types";
@@ -28,6 +29,8 @@ type FormErrors = {
 };
 
 export default function CreateQuizPage() {
+  const navigate = useNavigate();
+
   const [quizTitle, setQuizTitle] = useState("");
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] =
@@ -143,6 +146,8 @@ export default function CreateQuizPage() {
     console.table(payload.questions);
 
     addMutation.mutate(payload);
+
+    navigate("/quizzes");
   };
 
   return (
