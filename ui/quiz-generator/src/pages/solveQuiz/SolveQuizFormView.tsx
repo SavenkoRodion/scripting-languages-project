@@ -16,6 +16,10 @@ interface SolveQuizFormViewProps {
   onSubmit: () => void;
   onReset: () => void;
   onSelectAnswer: (questionId: number, value: boolean) => void;
+  correctAnswers: number | undefined;
+  incorrectAnswers: number | undefined;
+  passed: boolean | undefined;
+  scorePercentage: number | undefined;
 }
 
 export default function SolveQuizFormView({
@@ -28,6 +32,10 @@ export default function SolveQuizFormView({
   onSubmit,
   onReset,
   onSelectAnswer,
+  correctAnswers,
+  scorePercentage,
+  passed,
+  incorrectAnswers,
 }: SolveQuizFormViewProps) {
   const totalQuestions = questions.length;
   const answeredCount = questions.filter((q) => answers[q.id] !== null).length;
@@ -49,11 +57,6 @@ export default function SolveQuizFormView({
       input?.focus();
     }
   }, [firstUnansweredId]);
-
-  const correct_answers = 1;
-  const incorrect_answers = 1;
-  const passed = 1;
-  const score_percentage = 1;
 
   return (
     <form
@@ -77,7 +80,10 @@ export default function SolveQuizFormView({
             answered
           </p>
         </div>
-      ) : (
+      ) : correctAnswers !== undefined &&
+        scorePercentage !== undefined &&
+        passed !== undefined &&
+        incorrectAnswers !== undefined ? (
         <div className="space-y-3">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -87,11 +93,11 @@ export default function SolveQuizFormView({
               <p className="text-xs/5 text-gray-500">
                 {totalQuestions} questions ·{" "}
                 <span className="font-medium text-gray-900">
-                  {correct_answers} correct
+                  {correctAnswers} correct
                 </span>{" "}
                 ·{" "}
                 <span className="font-medium text-gray-900">
-                  {incorrect_answers} incorrect
+                  {incorrectAnswers} incorrect
                 </span>
               </p>
             </div>
@@ -110,7 +116,7 @@ export default function SolveQuizFormView({
               <div className="text-sm text-gray-700">
                 Score:{" "}
                 <span className="font-semibold text-gray-900">
-                  {score_percentage.toFixed(1)}%
+                  {scorePercentage.toFixed(1)}%
                 </span>
               </div>
             </div>
@@ -124,11 +130,13 @@ export default function SolveQuizFormView({
                   "h-2 rounded-full",
                   passed ? "bg-green-500" : "bg-red-500"
                 )}
-                style={{ width: `${Math.min(score_percentage, 100)}%` }}
+                style={{ width: `${Math.min(scorePercentage, 100)}%` }}
               />
             </div>
           </div>
         </div>
+      ) : (
+        "Loading..."
       )}
 
       {/* Global validation error */}

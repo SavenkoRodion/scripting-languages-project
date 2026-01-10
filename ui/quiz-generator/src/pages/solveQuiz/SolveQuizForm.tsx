@@ -65,12 +65,13 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     }));
 
     console.log("Submitted answers payload:", payload);
-    // later: API call
 
-    const lol = checkMutation.mutate({
+    checkMutation.mutate({
       quizId: quiz.quizId,
       completedQuiz: { answers: payload },
     });
+
+    console.log("LOLEK ", checkMutation.data);
 
     setSubmitted(true);
   };
@@ -85,6 +86,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setValidationError(null);
     setFirstUnansweredId(null);
   };
+  console.log("LOLEK ", checkMutation.data);
 
   return (
     <SolveQuizFormView
@@ -97,6 +99,10 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
       onSelectAnswer={handleSelectAnswer}
       onSubmit={handleSubmit}
       onReset={handleReset}
+      scorePercentage={checkMutation.data?.correctAnswers}
+      incorrectAnswers={checkMutation.data?.incorrectAnswers}
+      passed={checkMutation.data?.passed}
+      correctAnswers={checkMutation.data?.correctAnswers}
     />
   );
 }

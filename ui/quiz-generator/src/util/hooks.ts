@@ -1,6 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../main";
-import type { QuizAnswer, QuizCreateDto } from "./types";
+import type {
+  CheckQuizSuccessResponse,
+  QuizAnswers,
+  QuizCreateDto,
+} from "./types";
 import { checkQuiz, createQuiz, getQuizList } from "./util";
 
 export const useQuizList = () => {
@@ -21,10 +25,15 @@ export const useAddQuiz = () => {
   });
 };
 
-export const useCheckQuiz = (quizId: number, completedQuiz: QuizAnswer) => {
-  return useQuery({
-    queryKey: ["quizAnswer", quizId, completedQuiz],
-    queryFn: async () => {
+export const useCheckQuiz = () => {
+  return useMutation({
+    mutationFn: async ({
+      quizId,
+      completedQuiz,
+    }: {
+      quizId: number;
+      completedQuiz: QuizAnswers;
+    }): Promise<CheckQuizSuccessResponse> => {
       return await checkQuiz(quizId, completedQuiz);
     },
   });
