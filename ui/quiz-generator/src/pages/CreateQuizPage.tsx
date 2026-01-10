@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { type FormEvent, useState } from "react";
 import { z } from "zod";
 import { useAddQuiz } from "../util/hooks";
@@ -95,7 +96,7 @@ export default function CreateQuizPage() {
       const nextErrors: FormErrors = { questions: {} };
 
       for (const issue of result.error.issues) {
-        const [root, index, field] = issue.path;
+        const [root, index] = issue.path;
 
         if (root === "title") nextErrors.title = issue.message;
         else if (root === "description") nextErrors.description = issue.message;
