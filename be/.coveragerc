@@ -1,0 +1,6 @@
+[run]
+branch = True
+omit =
+    */main.py
+    */routes.py
+    */__init__.py
