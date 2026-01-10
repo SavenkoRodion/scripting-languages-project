@@ -1,6 +1,7 @@
 // SolveQuizForm.tsx
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
+import type { QuizResponse } from "../../util/types";
 import SolveQuizFormView from "./SolveQuizFormView";
 
 export type QuizQuestion = {
@@ -8,14 +9,8 @@ export type QuizQuestion = {
   text: string;
 };
 
-export type Quiz = {
-  id: string;
-  name: string;
-  questions: QuizQuestion[];
-};
-
 interface SolveQuizFormProps {
-  quiz: Quiz;
+  quiz: QuizResponse;
 }
 
 export type AnswerPayloadItem = {
@@ -37,11 +32,11 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
 
   const [submitted, setSubmitted] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
-  const [firstUnansweredId, setFirstUnansweredId] = useState<string | null>(
+  const [firstUnansweredId, setFirstUnansweredId] = useState<number | null>(
     null
   );
 
-  const handleSelectAnswer = (questionId: string, value: boolean) => {
+  const handleSelectAnswer = (questionId: number, value: boolean) => {
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
@@ -54,9 +49,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const firstUnanswered = quiz.questions.find(
-      (q) => answers[q.id] === null
-    );
+    const firstUnanswered = quiz.questions.find((q) => answers[q.id] === null);
 
     if (firstUnanswered) {
       setSubmitted(false);
@@ -69,7 +62,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setFirstUnansweredId(null);
 
     const payload: AnswerPayloadItem[] = quiz.questions.map((q) => ({
-      questionId: q.id,
+      questionId: String(q.id),
       answer: answers[q.id] as boolean,
     }));
 
@@ -79,10 +72,10 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setSubmitted(true);
 
     // redirect to result page; adjust path to match your routing
-    navigate(`/quizzes/${quiz.id}/results`, {
+    navigate(`/quizzes/${quiz.quizId}/results`, {
       state: {
-        quizId: quiz.id,
-        quizName: quiz.name,
+        quizId: quiz.quizId,
+        quizName: quiz.quizTitle,
         answers: payload,
       },
     });
@@ -101,7 +94,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
 
   return (
     <SolveQuizFormView
-      quizName={quiz.name}
+      quizName={quiz.quizTitle}
       questions={quiz.questions}
       answers={answers}
       submitted={submitted}

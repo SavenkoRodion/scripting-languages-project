@@ -1,6 +1,6 @@
 // SolveQuizFormView.tsx
 import { type FormEvent, useEffect } from "react";
-import type { QuizQuestion } from "./SolveQuizForm";
+import type { QuestionResponse } from "../../util/types";
 
 function classNames(...classes: Array<string | boolean | null | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -8,14 +8,14 @@ function classNames(...classes: Array<string | boolean | null | undefined>) {
 
 interface SolveQuizFormViewProps {
   quizName: string;
-  questions: QuizQuestion[];
+  questions: QuestionResponse[];
   answers: Record<string, boolean | null>;
   submitted: boolean;
   validationError: string | null;
-  firstUnansweredId: string | null;
+  firstUnansweredId: number | null;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   onReset: () => void;
-  onSelectAnswer: (questionId: string, value: boolean) => void;
+  onSelectAnswer: (questionId: number, value: boolean) => void;
 }
 
 export default function SolveQuizFormView({
@@ -30,9 +30,7 @@ export default function SolveQuizFormView({
   onSelectAnswer,
 }: SolveQuizFormViewProps) {
   const totalQuestions = questions.length;
-  const answeredCount = questions.filter(
-    (q) => answers[q.id] !== null
-  ).length;
+  const answeredCount = questions.filter((q) => answers[q.id] !== null).length;
 
   // Scroll to first unanswered question when validation fails
   useEffect(() => {
@@ -78,7 +76,7 @@ export default function SolveQuizFormView({
       {/* Feedback after successful submit */}
       {submitted && !validationError && (
         <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm text-indigo-900">
-          Your answers have been submitted. 
+          Your answers have been submitted.
         </div>
       )}
 
@@ -108,7 +106,7 @@ export default function SolveQuizFormView({
                   <span className="inline-flex items-center rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
                     Question {index + 1}
                   </span>
-                  <p className="text-sm/6 text-gray-900">{question.text}</p>
+                  <p className="text-sm/6 text-gray-900">{question.question}</p>
                   <p className="text-xs/5 text-gray-500">
                     Choose whether you think this statement is true or false.
                   </p>

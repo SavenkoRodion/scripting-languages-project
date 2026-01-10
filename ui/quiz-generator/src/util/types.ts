@@ -1,16 +1,3 @@
-export interface Question {
-  id: number;
-  question: string;
-  answer: boolean;
-}
-
-export interface Quiz {
-  quizId: number;
-  quizTitle: string;
-  description?: string;
-  questions: Question[];
-}
-
 export interface QuestionCreateDto {
   question: string;
   answer: boolean;

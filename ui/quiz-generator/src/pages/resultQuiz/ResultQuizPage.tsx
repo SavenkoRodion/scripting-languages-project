@@ -1,6 +1,3 @@
-// src/pages/resultQuiz/ResultQuizPage.tsx
-import type { Quiz } from "../solveQuiz/SolveQuizForm";
-
 export type BackendQuizResult = {
   quiz_id: number;
   quiz_title: string;
@@ -18,7 +15,7 @@ export type BackendQuizResult = {
 };
 
 // Example quiz (what user saw & answered) – SAME as SolveQuizPage
-const exampleQuiz: Quiz = {
+const exampleQuiz = {
   id: "1",
   name: "JavaScript Basics",
   questions: [
