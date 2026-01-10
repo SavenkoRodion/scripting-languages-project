@@ -22,5 +22,6 @@ pytest \
     -vv \
     -ra \
     --cov=app \
+    --cov-config=be/.coveragerc \
     --cov-report=term-missing \
     be/tests/test_repository_service.py
