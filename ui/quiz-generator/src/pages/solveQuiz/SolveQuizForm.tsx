@@ -88,7 +88,6 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
       firstUnansweredId={firstUnansweredId}
       onSelectAnswer={handleSelectAnswer}
       onSubmit={handleSubmit}
-      submitted={submitted}
       onReset={handleReset}
     />
   );

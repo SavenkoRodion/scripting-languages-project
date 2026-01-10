@@ -16,7 +16,6 @@ interface SolveQuizFormViewProps {
   onSubmit: () => void;
   onReset: () => void;
   onSelectAnswer: (questionId: number, value: boolean) => void;
-  submitted: boolean;
 }
 
 export default function SolveQuizFormView({
