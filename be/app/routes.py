@@ -1,8 +1,8 @@
 import logging
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from ..models import QuizAnswers, QuizCreateDto
-from ..services import QuizService
+from .models import QuizAnswers, QuizCreateDto
+from .services import QuizService
 
 logger = logging.getLogger(__name__)
 
