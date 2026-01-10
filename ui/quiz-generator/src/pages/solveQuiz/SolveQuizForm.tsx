@@ -1,7 +1,7 @@
 // SolveQuizForm.tsx
-import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router";
-import type { QuizResponse } from "../../util/types";
+import { useState } from "react";
+import { useCheckQuiz } from "../../util/hooks";
+import type { AnswerDto, QuizResponse } from "../../util/types";
 import SolveQuizFormView from "./SolveQuizFormView";
 
 export type QuizQuestion = {
@@ -19,7 +19,7 @@ export type AnswerPayloadItem = {
 };
 
 export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
-  const navigate = useNavigate();
+  const checkMutation = useCheckQuiz();
 
   // boolean | null => null = not answered yet
   const [answers, setAnswers] = useState<Record<string, boolean | null>>(() => {
@@ -46,9 +46,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setFirstUnansweredId(null);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     const firstUnanswered = quiz.questions.find((q) => answers[q.id] === null);
 
     if (firstUnanswered) {
@@ -61,24 +59,21 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setValidationError(null);
     setFirstUnansweredId(null);
 
-    const payload: AnswerPayloadItem[] = quiz.questions.map((q) => ({
-      questionId: String(q.id),
+    const payload: AnswerDto[] = quiz.questions.map((q) => ({
+      id: q.id,
       answer: answers[q.id] as boolean,
     }));
 
     console.log("Submitted answers payload:", payload);
-    // later: API call
+
+    checkMutation.mutate({
+      quizId: quiz.quizId,
+      completedQuiz: { answers: payload },
+    });
+
+    console.log("LOLEK ", checkMutation.data);
 
     setSubmitted(true);
-
-    // redirect to result page; adjust path to match your routing
-    navigate(`/quizzes/${quiz.quizId}/results`, {
-      state: {
-        quizId: quiz.quizId,
-        quizName: quiz.quizTitle,
-        answers: payload,
-      },
-    });
   };
 
   const handleReset = () => {
@@ -91,6 +86,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setValidationError(null);
     setFirstUnansweredId(null);
   };
+  console.log("LOLEK ", checkMutation.data);
 
   return (
     <SolveQuizFormView
@@ -103,6 +99,10 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
       onSelectAnswer={handleSelectAnswer}
       onSubmit={handleSubmit}
       onReset={handleReset}
+      scorePercentage={checkMutation.data?.correctAnswers}
+      incorrectAnswers={checkMutation.data?.incorrectAnswers}
+      passed={checkMutation.data?.passed}
+      correctAnswers={checkMutation.data?.correctAnswers}
     />
   );
 }

@@ -6,10 +6,9 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import App from "./App.tsx";
 import "./index.css";
 import CreateQuizPage from "./pages/CreateQuizPage.tsx";
-import QuizListPage from "./pages/QuizListPage.tsx";
-import ResultQuizPage from "./pages/resultQuiz/ResultQuizPage.tsx";
-import SolveQuizPage from "./pages/solveQuiz/SolveQuizPage.tsx";
 import HomePage from "./pages/HomePage.tsx";
+import QuizListPage from "./pages/QuizListPage.tsx";
+import SolveQuizPage from "./pages/solveQuiz/SolveQuizPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -21,21 +20,14 @@ createRoot(document.getElementById("root")!).render(
           {/* Layout route */}
           <Route path="/" element={<App />}>
             {/* HomePage → "/" */}
-            <Route
-              index
-
-              element={<HomePage />}
-            />
+            <Route index element={<HomePage />} />
 
             {/* AddQuiz → "/create-quiz" (already implemented) */}
             <Route path="create-quiz" element={<CreateQuizPage />} />
 
             {/* QuizzesList → "/quizzes" */}
             <Route path="quizzes" element={<QuizListPage />} />
-          <Route
-            path="quizzes/:quizId/results"
-            element={<ResultQuizPage />}
-          />
+
             {/* Single Quiz → "/quizzes/:quizId" */}
             <Route path="quizzes/:quizId" element={<SolveQuizPage />} />
           </Route>

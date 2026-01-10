@@ -1,5 +1,5 @@
 // SolveQuizFormView.tsx
-import { type FormEvent, useEffect } from "react";
+import { useEffect } from "react";
 import type { QuestionResponse } from "../../util/types";
 
 function classNames(...classes: Array<string | boolean | null | undefined>) {
@@ -13,9 +13,13 @@ interface SolveQuizFormViewProps {
   submitted: boolean;
   validationError: string | null;
   firstUnansweredId: number | null;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onSubmit: () => void;
   onReset: () => void;
   onSelectAnswer: (questionId: number, value: boolean) => void;
+  correctAnswers: number | undefined;
+  incorrectAnswers: number | undefined;
+  passed: boolean | undefined;
+  scorePercentage: number | undefined;
 }
 
 export default function SolveQuizFormView({
@@ -28,6 +32,10 @@ export default function SolveQuizFormView({
   onSubmit,
   onReset,
   onSelectAnswer,
+  correctAnswers,
+  scorePercentage,
+  passed,
+  incorrectAnswers,
 }: SolveQuizFormViewProps) {
   const totalQuestions = questions.length;
   const answeredCount = questions.filter((q) => answers[q.id] !== null).length;
@@ -51,20 +59,85 @@ export default function SolveQuizFormView({
   }, [firstUnansweredId]);
 
   return (
-    <form onSubmit={onSubmit} className="space-y-8">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+      className="space-y-8"
+    >
       {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-          {quizName}
-        </h1>
-        <p className="text-xs/5 text-gray-500">
-          {totalQuestions} questions ·{" "}
-          <span className="font-medium text-gray-900">
-            {answeredCount}/{totalQuestions}
-          </span>{" "}
-          answered
-        </p>
-      </div>
+      {!submitted ? (
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+            {quizName}
+          </h1>
+          <p className="text-xs/5 text-gray-500">
+            {totalQuestions} questions ·{" "}
+            <span className="font-medium text-gray-900">
+              {answeredCount}/{totalQuestions}
+            </span>{" "}
+            answered
+          </p>
+        </div>
+      ) : correctAnswers !== undefined &&
+        scorePercentage !== undefined &&
+        passed !== undefined &&
+        incorrectAnswers !== undefined ? (
+        <div className="space-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                {quizName}
+              </h1>
+              <p className="text-xs/5 text-gray-500">
+                {totalQuestions} questions ·{" "}
+                <span className="font-medium text-gray-900">
+                  {correctAnswers} correct
+                </span>{" "}
+                ·{" "}
+                <span className="font-medium text-gray-900">
+                  {incorrectAnswers} incorrect
+                </span>
+              </p>
+            </div>
+
+            <div className="flex flex-col items-start gap-2 sm:items-end">
+              <span
+                className={classNames(
+                  "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold",
+                  passed
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                )}
+              >
+                {passed ? "Passed" : "Failed"}
+              </span>
+              <div className="text-sm text-gray-700">
+                Score:{" "}
+                <span className="font-semibold text-gray-900">
+                  {scorePercentage.toFixed(1)}%
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-2">
+            <div className="h-2 w-full rounded-full bg-gray-100">
+              <div
+                className={classNames(
+                  "h-2 rounded-full",
+                  passed ? "bg-green-500" : "bg-red-500"
+                )}
+                style={{ width: `${Math.min(scorePercentage, 100)}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        "Loading..."
+      )}
 
       {/* Global validation error */}
       {validationError && (
@@ -186,7 +259,9 @@ export default function SolveQuizFormView({
       <div className="mt-6 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end sm:gap-4">
         <button
           type="button"
-          onClick={onReset}
+          onClick={() => {
+            onReset();
+          }}
           className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50 sm:w-auto"
         >
           Reset
