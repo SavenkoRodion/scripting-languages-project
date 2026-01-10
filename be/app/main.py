@@ -2,6 +2,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import router
+from fastapi.responses import JSONResponse
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -43,3 +44,7 @@ async def shutdown_event():
     logger.info("=" * 80)
     logger.info("APPLICATION SHUTDOWN EVENT")
     logger.info("=" * 80)
+
+@app.get("/health")
+def health():
+    return JSONResponse(content={"stauts": "ok"}, status_code=200)
