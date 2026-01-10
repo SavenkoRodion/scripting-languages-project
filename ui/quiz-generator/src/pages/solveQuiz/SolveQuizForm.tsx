@@ -1,6 +1,5 @@
 // SolveQuizForm.tsx
-import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router";
+import { useState } from "react";
 import type { QuizResponse } from "../../util/types";
 import SolveQuizFormView from "./SolveQuizFormView";
 
@@ -19,8 +18,6 @@ export type AnswerPayloadItem = {
 };
 
 export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
-  const navigate = useNavigate();
-
   // boolean | null => null = not answered yet
   const [answers, setAnswers] = useState<Record<string, boolean | null>>(() => {
     const initial: Record<string, boolean | null> = {};
@@ -46,9 +43,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setFirstUnansweredId(null);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     const firstUnanswered = quiz.questions.find((q) => answers[q.id] === null);
 
     if (firstUnanswered) {
@@ -70,15 +65,6 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     // later: API call
 
     setSubmitted(true);
-
-    // redirect to result page; adjust path to match your routing
-    navigate(`/quizzes/${quiz.quizId}/results`, {
-      state: {
-        quizId: quiz.quizId,
-        quizName: quiz.quizTitle,
-        answers: payload,
-      },
-    });
   };
 
   const handleReset = () => {
@@ -102,6 +88,7 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
       firstUnansweredId={firstUnansweredId}
       onSelectAnswer={handleSelectAnswer}
       onSubmit={handleSubmit}
+      submitted={submitted}
       onReset={handleReset}
     />
   );
