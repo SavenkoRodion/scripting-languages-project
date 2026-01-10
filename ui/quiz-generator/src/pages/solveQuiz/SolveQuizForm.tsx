@@ -1,6 +1,7 @@
 // SolveQuizForm.tsx
 import { useState } from "react";
-import type { QuizResponse } from "../../util/types";
+import { useCheckQuiz } from "../../util/hooks";
+import type { AnswerDto, QuizResponse } from "../../util/types";
 import SolveQuizFormView from "./SolveQuizFormView";
 
 export type QuizQuestion = {
@@ -18,6 +19,8 @@ export type AnswerPayloadItem = {
 };
 
 export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
+  const checkMutation = useCheckQuiz();
+
   // boolean | null => null = not answered yet
   const [answers, setAnswers] = useState<Record<string, boolean | null>>(() => {
     const initial: Record<string, boolean | null> = {};
@@ -56,13 +59,18 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     setValidationError(null);
     setFirstUnansweredId(null);
 
-    const payload: AnswerPayloadItem[] = quiz.questions.map((q) => ({
-      questionId: String(q.id),
+    const payload: AnswerDto[] = quiz.questions.map((q) => ({
+      id: q.id,
       answer: answers[q.id] as boolean,
     }));
 
     console.log("Submitted answers payload:", payload);
     // later: API call
+
+    const lol = checkMutation.mutate({
+      quizId: quiz.quizId,
+      completedQuiz: { answers: payload },
+    });
 
     setSubmitted(true);
   };

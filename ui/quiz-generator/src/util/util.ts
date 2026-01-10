@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { QuizCreateDto, QuizResponse } from "./types";
+import type { QuizAnswer, QuizCreateDto, QuizResponse } from "./types";
 
 const api = axios.create({
   baseURL: `${import.meta.env.VITE_BACKEND_URL}`,
@@ -18,6 +18,15 @@ export async function createQuiz(
 ): Promise<QuizResponse> {
   return (await api.post<QuizResponse>("quizes/create", quizCreateRequest))
     .data;
+}
+
+export async function checkQuiz(
+  quizId: number,
+  quizCheckRequest: QuizAnswer
+): Promise<QuizResponse> {
+  return (
+    await api.post<QuizResponse>(`quizes/${quizId}/check`, quizCheckRequest)
+  ).data;
 }
 
 // export async function deleteQuiz(id: string): Promise<boolean> {

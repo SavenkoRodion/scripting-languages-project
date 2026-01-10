@@ -29,3 +29,12 @@ export interface QuizResponse {
   description: string;
   questions: QuestionResponse[];
 }
+
+export interface AnswerDto {
+  id: number;
+  answer: boolean;
+}
+
+export interface QuizAnswer {
+  answers: AnswerDto[];
+}
