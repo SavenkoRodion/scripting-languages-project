@@ -72,6 +72,12 @@ export default function SolveQuizForm({ quiz }: SolveQuizFormProps) {
     });
 
     setSubmitted(true);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleReset = () => {

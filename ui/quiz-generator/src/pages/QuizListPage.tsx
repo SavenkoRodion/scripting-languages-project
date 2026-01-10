@@ -34,8 +34,6 @@ export default function QuizListPage() {
               </div>
 
               <div className="border-t border-gray-200 px-4 py-3">
-                {/* Na razie prowadzi do ogólnej strony solve-quiz.
-               Później możesz zrobić np. /solve-quiz/:id */}
                 <Link
                   to={`/quizzes/${quiz.quizId}`}
                   className="inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
