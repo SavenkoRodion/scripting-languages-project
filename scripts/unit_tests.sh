@@ -18,4 +18,9 @@ pip install --upgrade pip
 pip install -r "$REQUIREMENTS_FILE"
 
 export PYTHONPATH="$PROJECT_ROOT"
-pytest -q be/tests/test_repository_service.py
+pytest \
+    -vv \
+    -ra \
+    --cov=app \
+    --cov-report=term-missing \
+    be/tests/test_repository_service.py
